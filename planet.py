@@ -12,21 +12,22 @@ class Planet ():
 		radius = 50.0
 		speed = 1.5
 	"""
-	def __init__ (self, image = "planet.png", radians = 0.0, radius = 50.0, speed = 1.5):
+	def __init__ (self, image = "planet.png", radians = 0.0, radius = 50.0, speed = 1.5, scale = None):
 		# Image to be used as a planet
-		self.sprite = pygame.image.load("planet.png").convert_alpha()
 		self.sprite = pygame.image.load(image).convert_alpha()
+		if scale is not None:
+			self.sprite = pygame.transform.scale (self.sprite, scale)
 
 		# The start angle measured in radians
 		self.radians = 0.0
 		self.radians = radians
 
 		# Radius of the circle
-		self.radius = 50.0
+		self.radius = 250.0
 		self.radius = radius
 
 		# Speed of the planet
-		self.speed = 1.5
+		self.speed = 0.75
 		self.speed = speed
 
 	"""

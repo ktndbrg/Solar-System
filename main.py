@@ -17,21 +17,28 @@ class Game ():
 		pygame.init ()
 		
 		# Make the gamewindow
-		self.screen = pygame.display.set_mode ((300, 300), flags = pygame.SCALED)
+		self.screen = pygame.display.set_mode ((900, 900), flags = pygame.SCALED)
 		# Set the Title of the window
 		pygame.display.set_caption ("Planets Simulation")
 		
 		# Create a Star object, at position = []
-		self.star = Star (position = [150, 150])
+		self.star = Star (position = [450, 450])
 
 		# Create a Planet object
-		self.planet = Planet ()
-		#self.planet2 = Planet (image = "planet2.png", radians = 3.14, radius = 150.0, speed = 0.1)
+		self.planet = Planet (image = "out.png", radians = 0, radius = 100, speed = 1.0, scale = (500, 50))
+
+		"""
+			Updated
+		self.planets = [] # Empty list
+		self.planets.append (self.planet)
+		self.planets.append (Planet (image = "planet.png", radians = 0.707, radius = 75.0, speed = 1.5))
+		self.planets.append (Planet (image = "out.png", radians = 1.404, radius = 300.0, speed = -1, scale = (25, 25)))
 		
 		# We need to track time, with a clock
 		self.clock = pygame.time.Clock ()
 		# Set the framerate (FPS) to 60 fps
 		self.clock.tick (60)
+		"""
 
 	"""
 		Start the gameloop
@@ -67,7 +74,7 @@ class Game ():
 			# Did we click EXIT?
 			if event.type == pygame.QUIT:
 				self.run_flag = False
-
+			
 			# A Key was pressed
 			elif event.type == pygame.KEYDOWN:
 				# Which keycode was pressed?
@@ -83,8 +90,9 @@ class Game ():
 	"""
 	def update (self):
 		# Update the planet
-		self.planet.update (self.clock, self.star)
-		#self.planet2.update (self.clock, self.star)
+		# This will loop over all of our planets
+		for planet in self.planets:
+			planet.update (self.clock, self.star)
 
 	"""
 		Render the graphics
@@ -97,9 +105,11 @@ class Game ():
 		# Render the star
 		self.star.render (self.screen)
 
-		# Render the planet
+		# Render the planets
 		self.planet.render (self.screen)
-		#self.planet2.render (self.screen)
+		# Instead use a loop
+		for planet in self.planets:
+			planet.render (self.screen)
 
 		# Flip the table
 		# This will actually display the pictures
